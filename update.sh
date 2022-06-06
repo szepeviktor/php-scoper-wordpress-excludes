@@ -11,7 +11,7 @@ echo "Latest WordPress version: ${php_stubs_latest_version}"
 
 if dpkg --compare-versions "${php_stubs_latest_version#v}" le "${current_version#v}"; then
 	echo "Everything is up-to-date!"
-        exit 1
+	exit 1
 fi
 
 rm -rf generated/
@@ -23,7 +23,7 @@ vendor/bin/generate-excludes --json --exclude-empty
 mv generated/exclude-wordpress-globals-constants.json generated/exclude-wordpress-constants.json
 
 git add -A
-git commit -a -m "Automatic release for WordPress: {php_stubs_latest_version}"
+git commit -a -m "Automatic release for WordPress: ${php_stubs_latest_version}"
 git tag "${php_stubs_latest_version}" HEAD
 git push
 git push --tags
