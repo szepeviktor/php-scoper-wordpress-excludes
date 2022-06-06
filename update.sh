@@ -9,7 +9,7 @@ echo "Current version: ${current_version}"
 php_stubs_latest_version=$(composer show --available --format=json php-stubs/wordpress-stubs | jq -r '."versions" | first(.[] | select(test("^v?\\d+\\.\\d+\\.\\d+$")))')
 echo "Latest WordPress version: ${php_stubs_latest_version}"
 
-if dpkg --compare-versions "${php_stubs_latest_version}" le "${current_version}"; then
+if dpkg --compare-versions "${php_stubs_latest_version#v}" le "${current_version#v}"; then
 	echo "Everything is up-to-date!"
         exit 1
 fi
